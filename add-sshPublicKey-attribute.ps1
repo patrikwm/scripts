@@ -49,3 +49,7 @@ $attributes = @{
       }
 
 New-ADObject -Name sshPublicKey -Type attributeSchema -Path $schemapath -OtherAttributes $attributes
+
+$userSchema = get-adobject -SearchBase $schemapath -Filter 'name -eq "user"'
+
+$userSchema | Set-ADObject -Add @{mayContain = 'sshPublicKey'}
